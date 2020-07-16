@@ -24,7 +24,7 @@ class Login extends BaseController
             session()->set('id_user', $cek['id_user']);
             return redirect()->to(base_url('user'));
         } else {
-            session()->setFlashdata('gagal', 'Username / Password salah'); //tambahan kode
+            session()->setFlashdata('gagal', 'Email / Password salah'); //tambahan kode
             return redirect()->to(base_url('login'));
         }
     }

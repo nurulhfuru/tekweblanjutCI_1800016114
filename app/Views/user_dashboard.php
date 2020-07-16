@@ -9,16 +9,64 @@
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
     crossorigin="anonymous">
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+      $(function() {
+        $('#save').click(function() {
+          $('#myForm').submit()
+          $('#tambahdata').modal('hide')
+        })
+      })
+    </script>
+
     <title>User</title>
   </head>
   <body>
 
-  <div class="jumbotron">
-    <h1 class="display-4">Annyeong, <?= session()->get('id_nama'); ?>! Borahae </h1>
-    <hr class="my-4">
-    <a class="btn btn-primary btn-lg" href="<?= base_url('login/logout'); ?>"
-    role="button">Logout</a>
- </div>
+  <div class="container mt-3">
+    <h1>Annyeong, <?= session()->get('id_nama'); ?>! Borahae </h1>
+    <a class="btn btn-primary" href="/user/tambahdata" role="button">Tambah Data</a>
+    <table class="table mt-3">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Nama</th>
+          <th scope="col">Email</th>
+          <th scope="col">Aksi</th>
+        </tr>
+      </thead>
+    </tbody>
+
+    <?php $i = 1; ?>
+    <?php foreach ($user as $row) : ?>
+      <tr>
+        <td><?= $i; ?> </td>
+        <td><?= $row['nama']; ?></td>
+        <td><?= $row['email']; ?></td>
+        <td>
+          <a class="btn btn-success" href="/user/edit/<?= $row['id_user']; ?>" role="button">Edit</a>
+          <a class="btn btn-danger text-white" onclick="hapusData(<?= $row['id_user']; ?>)" role="button">Delete</a>
+        </td>
+      </tr>
+      <?php $i++; ?>
+    <?php endforeach; ?>
+    </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="<?= base_url('login/logout'); ?>" role="button">Logout</a>
+  </div>
+
+  <script>
+    function hapusData(id)
+    {
+      message = confirm('Apakah Anda yakin ingin menghapus data?')
+      
+      if (message) {
+        window.location.href = ("<?= base_url('user/delete'); ?>") + "/" + id
+      } else return false
+    }
+  </script>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

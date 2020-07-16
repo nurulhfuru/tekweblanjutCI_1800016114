@@ -34,6 +34,15 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+
+        <p>
+        <?php if (!empty(session()->getFlashdata('gagal'))) { ?>
+          <div class="alert alert-warning">
+        <?php echo session()->getFlashdata('gagal') ?>
+          </div>
+        <?php } ?>
+      </p>
+
   </div>
   </div>
   </div>
